@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academia de Química</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body { 
+            font-family: sans-serif; 
+            color: var(--tg-theme-text-color); 
+            background-color: var(--tg-theme-bg-color);
+            text-align: center;
+            padding-top: 50px;
+        }
+        button {
+            padding: 15px 25px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            background-color: var(--tg-theme-button-color);
+            color: var(--tg-theme-button-text-color);
+        }
+    </style>
+</head>
+<body>
+    <h1>¡Bienvenido al Vestíbulo!</h1>
+    <p>Esta es la base de nuestra Mini App.</p>
+    <button id="test-button">Enviar Datos al Bot</button>
+
+    <script>
+        // Accedemos al objeto global de Telegram [cite: 1542]
+        const WebApp = window.Telegram.WebApp;
+
+        // Informamos a Telegram que nuestra app está lista para ser mostrada [cite: 1543]
+        WebApp.ready();
+
+        const testButton = document.getElementById('test-button');
+        testButton.addEventListener('click', () => {
+            // Enviamos un string simple de vuelta al bot [cite: 1626, 1635]
+            const dataToSend = "Hola desde la Mini App!";
+            WebApp.sendData(dataToSend);
+        });
+    </script>
+</body>
+</html>
