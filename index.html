@@ -29,19 +29,35 @@
     <p>Esta es la base de nuestra Mini App.</p>
     <button id="test-button">Enviar Datos al Bot</button>
 
-    <script>
-        // Accedemos al objeto global de Telegram [cite: 1542]
-        const WebApp = window.Telegram.WebApp;
+<script>
+    // Accedemos al objeto global de Telegram
+    const WebApp = window.Telegram.WebApp;
+    console.log("1. Script iniciado. Objeto WebApp:", WebApp);
 
-        // Informamos a Telegram que nuestra app está lista para ser mostrada [cite: 1543]
-        WebApp.ready();
+    // Informamos a Telegram que nuestra app está lista para ser mostrada
+    WebApp.ready();
+    console.log("2. WebApp.ready() llamado.");
 
-        const testButton = document.getElementById('test-button');
-        testButton.addEventListener('click', () => {
-            // Enviamos un string simple de vuelta al bot [cite: 1626, 1635]
-            const dataToSend = "Hola desde la Mini App!";
+    const testButton = document.getElementById('test-button');
+    console.log("3. Botón 'Enviar Datos' encontrado en el HTML:", testButton);
+
+    testButton.addEventListener('click', () => {
+        console.log("4. ¡Botón presionado! El evento 'click' ha sido capturado.");
+        const dataToSend = "Hola desde la Mini App!";
+        console.log("5. Datos preparados para enviar:", dataToSend);
+
+        try {
+            // Esta es la llamada crítica que podría estar fallando silenciosamente.
             WebApp.sendData(dataToSend);
-        });
-    </script>
+            console.log("6. ¡ÉXITO! La orden WebApp.sendData() fue ejecutada.");
+        } catch (error) {
+            console.error("7. ¡FALLO! Ocurrió un error al ejecutar WebApp.sendData():", error);
+            // Si hay un error, lo mostraremos también como una alerta en la app.
+            WebApp.showAlert("Ocurrió un error al intentar enviar los datos: " + error.message);
+        }
+    });
+    console.log("Script finalizado. Esperando la interacción del usuario.");
+</script>
 </body>
+
 </html>
