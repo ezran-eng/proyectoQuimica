@@ -1,19 +1,78 @@
-<script>
-    const WebApp = window.Telegram.WebApp;
-    WebApp.ready();
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Academia de Química</title>
 
-    // Configuramos el Botón Principal
-    WebApp.MainButton.setText('Probar Alerta Nativa');
-    WebApp.MainButton.show();
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    // Adjuntamos el evento 'click' para la prueba de alerta
-    WebApp.MainButton.onClick(() => {
-        // En lugar de enviar datos, ahora solo intentamos mostrar una alerta.
-        try {
-            WebApp.showAlert("¡El puente de comunicación con el cliente funciona!");
-        } catch (error) {
-            // Si incluso esto falla, lo sabremos.
-            alert("Error al llamar a WebApp.showAlert: " + error);
+    <style>
+        /* Usamos las variables de color que nos proporciona Telegram para una integración visual perfecta */
+        :root {
+            --tg-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
-    });
-</script>
+
+        body {
+            font-family: var(--tg-font);
+            background-color: var(--tg-theme-bg-color);
+            color: var(--tg-theme-text-color);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        p {
+            font-size: 16px;
+            color: var(--tg-theme-hint-color); /* Usamos el color de 'pista' para texto secundario */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>¡Bienvenido a la Academia de Química!</h1>
+    <p>Este es el punto de partida. Los minijuegos y niveles aparecerán aquí. Use el botón inferior para interactuar.</p>
+
+    <script>
+        // --- Inicialización y Configuración ---
+
+        // 1. Obtenemos el objeto principal de la API
+        const WebApp = window.Telegram.WebApp;
+
+        // 2. Informamos a Telegram que nuestra App está lista para ser mostrada
+        WebApp.ready();
+
+        // 3. Configuramos el Botón Principal Nativo. Esta es la pieza central de interacción.
+        WebApp.MainButton.setText('Confirmar y Enviar'); // Texto inicial del botón
+        WebApp.MainButton.enable(); // Nos aseguramos de que esté activo
+        WebApp.MainButton.show(); // Lo hacemos visible
+
+        // --- Lógica de Interacción ---
+
+        // 4. Definimos la acción que ocurrirá cuando el usuario presione el Botón Principal
+        WebApp.MainButton.onClick(() => {
+            // Preparamos los datos a enviar. Más adelante, aquí irán los resultados del juego.
+            const dataToSend = "Acción confirmada desde el MainButton";
+            
+            // Enviamos los datos al bot.
+            WebApp.sendData(dataToSend);
+
+            // Es una buena práctica cerrar la app después de una acción final.
+            WebApp.close();
+        });
+
+    </script>
+
+</body>
+</html>
