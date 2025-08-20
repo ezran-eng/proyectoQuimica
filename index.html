@@ -13,51 +13,28 @@
             text-align: center;
             padding-top: 50px;
         }
-        button {
-            padding: 15px 25px;
-            font-size: 18px;
-            cursor: pointer;
-            border: none;
-            border-radius: 10px;
-            background-color: var(--tg-theme-button-color);
-            color: var(--tg-theme-button-text-color);
-        }
     </style>
 </head>
 <body>
     <h1>¡Bienvenido al Vestíbulo!</h1>
-    <p>Esta es la base de nuestra Mini App.</p>
-    <button id="test-button">Enviar Datos al Bot</button>
+    <p>Por favor, utilice el botón principal en la parte inferior para enviar los datos.</p>
 
-<script>
-    // Accedemos al objeto global de Telegram
-    const WebApp = window.Telegram.WebApp;
-    console.log("1. Script iniciado. Objeto WebApp:", WebApp);
+    <script>
+        const WebApp = window.Telegram.WebApp;
 
-    // Informamos a Telegram que nuestra app está lista para ser mostrada
-    WebApp.ready();
-    console.log("2. WebApp.ready() llamado.");
+        // 1. Informamos a Telegram que estamos listos
+        WebApp.ready();
 
-    const testButton = document.getElementById('test-button');
-    console.log("3. Botón 'Enviar Datos' encontrado en el HTML:", testButton);
+        // 2. Configuramos el Botón Principal nativo
+        WebApp.MainButton.setText('Enviar Datos al Bot'); // Le damos un texto
+        WebApp.MainButton.show(); // Lo hacemos visible
 
-    testButton.addEventListener('click', () => {
-        console.log("4. ¡Botón presionado! El evento 'click' ha sido capturado.");
-        const dataToSend = "Hola desde la Mini App!";
-        console.log("5. Datos preparados para enviar:", dataToSend);
-
-        try {
-            // Esta es la llamada crítica que podría estar fallando silenciosamente.
+        // 3. Adjuntamos nuestro mensajero al evento 'click' del Botón Principal
+        WebApp.MainButton.onClick(() => {
+            const dataToSend = "Hola desde la Mini App con el MainButton!";
             WebApp.sendData(dataToSend);
-            console.log("6. ¡ÉXITO! La orden WebApp.sendData() fue ejecutada.");
-        } catch (error) {
-            console.error("7. ¡FALLO! Ocurrió un error al ejecutar WebApp.sendData():", error);
-            // Si hay un error, lo mostraremos también como una alerta en la app.
-            WebApp.showAlert("Ocurrió un error al intentar enviar los datos: " + error.message);
-        }
-    });
-    console.log("Script finalizado. Esperando la interacción del usuario.");
-</script>
-</body>
+        });
 
+    </script>
+</body>
 </html>
