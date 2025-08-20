@@ -1,40 +1,19 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academia de Química</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-        body { 
-            font-family: sans-serif; 
-            color: var(--tg-theme-text-color); 
-            background-color: var(--tg-theme-bg-color);
-            text-align: center;
-            padding-top: 50px;
+<script>
+    const WebApp = window.Telegram.WebApp;
+    WebApp.ready();
+
+    // Configuramos el Botón Principal
+    WebApp.MainButton.setText('Probar Alerta Nativa');
+    WebApp.MainButton.show();
+
+    // Adjuntamos el evento 'click' para la prueba de alerta
+    WebApp.MainButton.onClick(() => {
+        // En lugar de enviar datos, ahora solo intentamos mostrar una alerta.
+        try {
+            WebApp.showAlert("¡El puente de comunicación con el cliente funciona!");
+        } catch (error) {
+            // Si incluso esto falla, lo sabremos.
+            alert("Error al llamar a WebApp.showAlert: " + error);
         }
-    </style>
-</head>
-<body>
-    <h1>¡Bienvenido al Vestíbulo!</h1>
-    <p>Por favor, utilice el botón principal en la parte inferior para enviar los datos.</p>
-
-    <script>
-        const WebApp = window.Telegram.WebApp;
-
-        // 1. Informamos a Telegram que estamos listos
-        WebApp.ready();
-
-        // 2. Configuramos el Botón Principal nativo
-        WebApp.MainButton.setText('Enviar Datos al Bot'); // Le damos un texto
-        WebApp.MainButton.show(); // Lo hacemos visible
-
-        // 3. Adjuntamos nuestro mensajero al evento 'click' del Botón Principal
-        WebApp.MainButton.onClick(() => {
-            const dataToSend = "Hola desde la Mini App con el MainButton!";
-            WebApp.sendData(dataToSend);
-        });
-
-    </script>
-</body>
-</html>
+    });
+</script>
